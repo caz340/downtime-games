@@ -386,6 +386,14 @@
   table.boss-table th{ background:#EAF1EC; font-weight:600; }
   table.boss-table tr:nth-child(even){ background:#FAFAF8; }
   .boss-hint{ position:fixed; bottom:10px; right:14px; font-size:11px; color:#9A9A94; }
+  .site-footer{ text-align:center; padding:0 20px 40px; font-size:12px; color:var(--text-soft); }
+  .kofi-btn{
+    display:inline-flex; align-items:center; gap:6px;
+    margin-top:12px; padding:8px 18px; border-radius:20px;
+    background: var(--ember); color:#fff; font-size:12.5px; font-weight:700;
+    text-decoration:none; transition: background 0.15s ease, transform 0.15s ease;
+  }
+  .kofi-btn:hover{ background: var(--ember-dark); transform: translateY(-1px); }
 </style>
 </head>
 <body>
@@ -459,6 +467,10 @@
     </div>
   </div>
 </main>
+
+<div class="site-footer">
+  <a class="kofi-btn" href="https://ko-fi.com/downtimegames" target="_blank" rel="noopener">&#9749; Support on Ko-fi</a>
+</div>
 
 <div id="summonOverlay">
   <div class="summon-card" id="summonCard">

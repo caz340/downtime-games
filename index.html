@@ -162,6 +162,21 @@
     font-size:12px;
     color: var(--ink-soft);
   }
+  .kofi-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    margin-top:12px;
+    padding:8px 18px;
+    border-radius:20px;
+    background: var(--amber);
+    color:#fff;
+    font-size:12.5px;
+    font-weight:700;
+    text-decoration:none;
+    transition: background 0.15s ease, transform 0.15s ease;
+  }
+  .kofi-btn:hover{ background: var(--teal-dark); transform: translateY(-1px); }
 
   /* Boss key overlay (matches downtime_1.html / arena.html) */
   #boss{
@@ -261,7 +276,10 @@
     </a>
   </div>
 
-  <footer>Downtime Arcade &middot; local, offline, no accounts needed</footer>
+  <footer>
+    Downtime Arcade &middot; local, offline, no accounts needed
+    <div><a class="kofi-btn" href="https://ko-fi.com/downtimegames" target="_blank" rel="noopener">&#9749; Support on Ko-fi</a></div>
+  </footer>
 </main>
 
 <div id="boss">
