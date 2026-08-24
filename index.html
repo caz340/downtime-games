@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Downtime Arcade</title>
+<style>
+  :root{
+    --bg: #F6F6F3;
+    --panel: #FFFFFF;
+    --ink: #24272B;
+    --ink-soft: #6B6F76;
+    --border: #E3E3DF;
+    --teal: #4A7C82;
+    --teal-dark: #396065;
+    --amber: #C98A3E;
+    --ember: #EE8A52;
+    --ember-dark: #C4622C;
+    --gold: #C79A3D;
+    --radius: 14px;
+    --shadow: 0 1px 2px rgba(36,39,43,0.06), 0 4px 12px rgba(36,39,43,0.04);
+  }
+  *{box-sizing:border-box;}
+  body{
+    margin:0;
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Helvetica, Arial, sans-serif;
+    background: var(--bg);
+    color: var(--ink);
+    min-height:100vh;
+  }
+  .topbar{
+    display:flex;
+    align-items:center;
+    justify-content:space-between;
+    padding:14px 20px;
+    background: var(--panel);
+    border-bottom:1px solid var(--border);
+  }
+  .brand{
+    display:flex;
+    align-items:center;
+    gap:10px;
+    font-weight:700;
+    font-size:15px;
+    color: var(--ink);
+    letter-spacing:0.2px;
+  }
+  .brand .dot{
+    width:9px;height:9px;border-radius:50%;
+    background: var(--teal);
+  }
+  .bosskey{
+    font-size:12px; color:var(--ink-soft);
+    background:var(--bg); border:1px solid var(--border);
+    padding:6px 11px; border-radius:7px; cursor:pointer;
+  }
+  .bosskey:hover{ background:#EFEFEA; }
+
+  main{
+    max-width:920px;
+    margin:0 auto;
+    padding:48px 20px 70px;
+  }
+  .intro{
+    text-align:center;
+    margin-bottom:38px;
+  }
+  .intro h1{
+    font-size:26px;
+    margin:0 0 8px;
+    letter-spacing:0.2px;
+  }
+  .intro p{
+    margin:0;
+    color:var(--ink-soft);
+    font-size:14.5px;
+  }
+
+  .cards{
+    display:grid;
+    grid-template-columns:1fr 1fr;
+    gap:20px;
+  }
+  @media (max-width:680px){
+    .cards{ grid-template-columns:1fr; }
+  }
+
+  .card{
+    position:relative;
+    display:block;
+    text-decoration:none;
+    color:inherit;
+    background: var(--panel);
+    border:1px solid var(--border);
+    border-radius: var(--radius);
+    padding:26px 24px;
+    box-shadow: var(--shadow);
+    overflow:hidden;
+    transition: transform 0.15s ease, box-shadow 0.15s ease;
+  }
+  .card:hover{
+    transform: translateY(-2px);
+    box-shadow: 0 2px 4px rgba(36,39,43,0.08), 0 10px 22px rgba(36,39,43,0.08);
+  }
+  .card::before{
+    content:"";
+    position:absolute;
+    top:0; left:0; right:0;
+    height:4px;
+  }
+  .card.tm::before{ background: linear-gradient(90deg, var(--teal), var(--amber)); }
+  .card.arena::before{ background: linear-gradient(90deg, var(--ember), var(--gold)); }
+
+  .card-icon{
+    width:44px; height:44px;
+    border-radius:11px;
+    display:flex; align-items:center; justify-content:center;
+    font-size:20px;
+    margin-bottom:16px;
+  }
+  .card.tm .card-icon{ background:rgba(74,124,130,0.12); }
+  .card.arena .card-icon{ background:rgba(238,138,82,0.14); }
+
+  .card h2{
+    font-size:18px;
+    margin:0 0 8px;
+  }
+  .card p.desc{
+    margin:0 0 16px;
+    font-size:13.5px;
+    color:var(--ink-soft);
+    line-height:1.5;
+  }
+  .tags{
+    display:flex; flex-wrap:wrap; gap:6px;
+  }
+  .tag{
+    font-size:11.5px;
+    font-weight:600;
+    padding:4px 9px;
+    border-radius:6px;
+    background: var(--bg);
+    border:1px solid var(--border);
+    color: var(--ink-soft);
+  }
+  .card.tm .tag{ color: var(--teal-dark); }
+  .card.arena .tag{ color: var(--ember-dark); }
+
+  .play{
+    margin-top:18px;
+    font-size:12.5px;
+    font-weight:700;
+    color: var(--ink);
+    display:flex; align-items:center; gap:6px;
+  }
+  .arrow{ transition: transform 0.15s ease; }
+  .card:hover .arrow{ transform: translateX(3px); }
+
+  footer{
+    text-align:center;
+    margin-top:44px;
+    font-size:12px;
+    color: var(--ink-soft);
+  }
+
+  /* Boss key overlay (matches downtime_1.html / arena.html) */
+  #boss{
+    display:none;
+    position:fixed; inset:0;
+    background:#fff;
+    z-index:999;
+    padding:0;
+  }
+  #boss.active{ display:block; }
+  .boss-bar{
+    display:flex; align-items:center; justify-content:space-between;
+    padding:8px 14px;
+    background:#F3F2ED;
+    border-bottom:1px solid #D8D6CE;
+    font-size:13px;
+    font-family: Calibri, Arial, sans-serif;
+    color:#3B3A38;
+  }
+  .boss-exit{
+    font-size:12px;
+    padding:5px 10px;
+    border-radius:5px;
+    border:1px solid #D8D6CE;
+    background:#fff;
+    cursor:pointer;
+    color:#3B3A38;
+  }
+  .boss-table-wrap{
+    overflow-x:auto;
+    -webkit-overflow-scrolling:touch;
+  }
+  .boss-table{
+    border-collapse:collapse;
+    width:100%;
+    min-width:480px;
+    font-family: Calibri, Arial, sans-serif;
+    font-size:13px;
+  }
+  .boss-table th, .boss-table td{
+    border:1px solid #D8D6CE;
+    padding:6px 10px;
+    text-align:left;
+  }
+  .boss-table th{
+    background:#EAF0EF;
+    font-weight:600;
+  }
+  .boss-table tr:nth-child(even) td{ background:#FAFAF8; }
+  .boss-hint{
+    position:fixed; bottom:10px; right:14px;
+    font-size:11px; color:#A9A79E;
+    font-family: Calibri, Arial, sans-serif;
+  }
+</style>
+</head>
+<body>
+
+<div class="topbar">
+  <div class="brand"><span class="dot"></span>Downtime Arcade</div>
+  <div class="bosskey" id="bosskeyBtn">Esc</div>
+</div>
+
+<main>
+  <div class="intro">
+    <h1>Pick a way to kill some time</h1>
+    <p>Two small game collections. Everything runs offline, saves locally, no accounts.</p>
+  </div>
+
+  <div class="cards">
+    <a class="card tm" href="downtime_1.html">
+      <div class="card-icon">🧩</div>
+      <h2>Task Manager</h2>
+      <p class="desc">Word puzzles, memory, sudoku, checkers, and a set of analyst-training mini games for when you want something a little more mind-bendy.</p>
+      <div class="tags">
+        <span class="tag">Word Guess</span>
+        <span class="tag">Codebreaker</span>
+        <span class="tag">Memory</span>
+        <span class="tag">Sudoku</span>
+        <span class="tag">Checkers</span>
+        <span class="tag">Analyst Training</span>
+      </div>
+      <div class="play">Play <span class="arrow">&rarr;</span></div>
+    </a>
+
+    <a class="card arena" href="arena.html">
+      <div class="card-icon">⚔️</div>
+      <h2>Arena Log</h2>
+      <p class="desc">A slow-burn idle RPG. Recruit heroes, gear up, push through a campaign of stages, and check back in whenever you have a spare minute.</p>
+      <div class="tags">
+        <span class="tag">Idle RPG</span>
+        <span class="tag">Campaign</span>
+        <span class="tag">Gear</span>
+        <span class="tag">Daily Streak</span>
+      </div>
+      <div class="play">Play <span class="arrow">&rarr;</span></div>
+    </a>
+  </div>
+
+  <footer>Downtime Arcade &middot; local, offline, no accounts needed</footer>
+</main>
+
+<div id="boss">
+  <div class="boss-bar">
+    <span>Expense_Report_Q3.xlsx</span>
+    <button class="boss-exit" id="bossExit">Close</button>
+  </div>
+  <div class="boss-table-wrap"><table class="boss-table" id="bossTable"></table></div>
+  <div class="boss-hint">Press Esc to return</div>
+</div>
+
+<script>
+const bossOverlay = document.getElementById('boss');
+const bossRows = [
+  ['Date','Category','Description','Amount','Status'],
+  ['07/02/2026','Office Supplies','Printer paper & toner','$86.40','Approved'],
+  ['07/05/2026','Software','Cloud storage renewal','$129.00','Approved'],
+  ['07/08/2026','Travel','Client site visit — mileage','$54.75','Pending'],
+  ['07/10/2026','Meals','Team lunch meeting','$112.30','Approved'],
+  ['07/12/2026','Postage','Certified mail','$18.60','Approved'],
+  ['07/15/2026','Equipment','Replacement keyboard','$42.99','Pending'],
+  ['07/18/2026','Training','Online course subscription','$199.00','Denied'],
+  ['07/20/2026','Office Supplies','Folders & labels','$23.15','Approved'],
+];
+document.getElementById('bossTable').innerHTML =
+  '<tr>' + bossRows[0].map(h=>`<th>${h}</th>`).join('') + '</tr>' +
+  bossRows.slice(1).map(r=>'<tr>'+r.map(c=>`<td>${c}</td>`).join('')+'</tr>').join('');
+
+function toggleBoss(force){
+  const show = force !== undefined ? force : !bossOverlay.classList.contains('active');
+  bossOverlay.classList.toggle('active', show);
+}
+document.getElementById('bosskeyBtn').addEventListener('click', ()=>toggleBoss(true));
+document.getElementById('bossExit').addEventListener('click', ()=>toggleBoss(false));
+document.addEventListener('keydown', (e)=>{
+  if(e.key === 'Escape'){ toggleBoss(); }
+});
+</script>
+
+</body>
+</html>
