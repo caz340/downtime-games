@@ -177,6 +177,21 @@
     transition: background 0.15s ease, transform 0.15s ease;
   }
   .kofi-btn:hover{ background: var(--teal-dark); transform: translateY(-1px); }
+  .footer-links{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:12px; }
+  .discord-btn{
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    padding:8px 18px;
+    border-radius:20px;
+    background: #5865F2;
+    color:#fff;
+    font-size:12.5px;
+    font-weight:700;
+    text-decoration:none;
+    transition: background 0.15s ease, transform 0.15s ease;
+  }
+  .discord-btn:hover{ background:#4752C4; transform: translateY(-1px); }
 
   /* Boss key overlay (matches downtime_1.html / arena.html) */
   #boss{
@@ -255,8 +270,10 @@
         <span class="tag">Word Guess</span>
         <span class="tag">Codebreaker</span>
         <span class="tag">Memory</span>
+        <span class="tag">Reflex</span>
         <span class="tag">Sudoku</span>
         <span class="tag">Checkers</span>
+        <span class="tag">Damas Chinas</span>
         <span class="tag">Analyst Training</span>
       </div>
       <div class="play">Play <span class="arrow">&rarr;</span></div>
@@ -278,7 +295,10 @@
 
   <footer>
     Downtime Arcade &middot; local, offline, no accounts needed
-    <div><a class="kofi-btn" href="https://ko-fi.com/downtimegames" target="_blank" rel="noopener">&#9749; Support on Ko-fi</a></div>
+    <div class="footer-links">
+      <a class="kofi-btn" href="https://ko-fi.com/downtimegames" target="_blank" rel="noopener">&#9749; Support on Ko-fi</a>
+      <a class="discord-btn" href="https://discord.gg/BJCqdqp6s" target="_blank" rel="noopener">💬 Join the Discord</a>
+    </div>
   </footer>
 </main>
 

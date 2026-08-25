@@ -18,6 +18,11 @@ either file directly:
 Everything runs entirely client-side and saves progress to `localStorage` —
 no data leaves your browser.
 
+## Community
+
+Join the [Discord](https://discord.gg/BJCqdqp6s) to chat, share feedback, or
+follow along with development.
+
 ## Boss key
 
 Press **Esc** in either game (or the landing page) to instantly switch to a
