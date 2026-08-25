@@ -595,6 +595,14 @@
     text-decoration:none; transition: background 0.15s ease, transform 0.15s ease;
   }
   .kofi-btn:hover{ background: var(--ember-dark); transform: translateY(-1px); }
+  .footer-links{ display:flex; gap:10px; justify-content:center; flex-wrap:wrap; margin-top:12px; }
+  .discord-btn{
+    display:inline-flex; align-items:center; gap:6px;
+    padding:8px 18px; border-radius:20px;
+    background:#5865F2; color:#fff; font-size:12.5px; font-weight:700;
+    text-decoration:none; transition: background 0.15s ease, transform 0.15s ease;
+  }
+  .discord-btn:hover{ background:#4752C4; transform: translateY(-1px); }
 </style>
 </head>
 <body>
@@ -652,7 +660,10 @@
 </main>
 
 <div class="site-footer">
-  <a class="kofi-btn" href="https://ko-fi.com/downtimegames" target="_blank" rel="noopener">&#9749; Support on Ko-fi</a>
+  <div class="footer-links">
+    <a class="kofi-btn" href="https://ko-fi.com/downtimegames" target="_blank" rel="noopener">&#9749; Support on Ko-fi</a>
+    <a class="discord-btn" href="https://discord.gg/BJCqdqp6s" target="_blank" rel="noopener">💬 Join the Discord</a>
+  </div>
 </div>
 
 <div id="battleOverlay">
