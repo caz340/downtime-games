@@ -661,7 +661,7 @@
 
 <div class="site-footer">
   <div class="footer-links">
-    <a class="kofi-btn" href="https://ko-fi.com/downtimegames" target="_blank" rel="noopener">&#9749; Support on Ko-fi</a>
+    <a class="kofi-btn" href="https://ko-fi.com/downtimearcade" target="_blank" rel="noopener">&#9749; Support on Ko-fi</a>
     <a class="discord-btn" href="https://discord.gg/BJCqdqp6s" target="_blank" rel="noopener">💬 Join the Discord</a>
   </div>
 </div>
@@ -1074,16 +1074,16 @@ const STAGE_BG = {
 const STAGES = [
   { label:'Easy', name:'The Trailwatch Line', accent:'#8CAA6E',
     sky1:'#8FB6D9', sky2:'#C9E0EE', ground:'#3E5A34', silo:'#2E4326', bg:STAGE_BG.easy,
-    mobs:['scout','wisp'], killsToClear:12, boss:'marshal', bossHpMult:5, mobBaseHp:20, mobGrowth:1.10 },
+    mobs:['scout','wisp'], killsToClear:12, boss:'marshal', bossHpMult:7, mobBaseHp:20, mobGrowth:1.14 },
   { label:'Medium', name:'The Ashwood', accent:'#EE8A52',
     sky1:'#D98A5E', sky2:'#F0C08A', ground:'#4A3320', silo:'#33210F', bg:STAGE_BG.medium,
-    mobs:['hound','scout'], killsToClear:18, boss:'marshal', bossHpMult:6, mobBaseHp:34, mobGrowth:1.12 },
+    mobs:['hound','scout'], killsToClear:18, boss:'marshal', bossHpMult:9, mobBaseHp:34, mobGrowth:1.16 },
   { label:'Hard', name:'The Deep Hollow', accent:'#C9B8E8',
     sky1:'#2E2448', sky2:'#4A3A6E', ground:'#241B34', silo:'#181024', bg:STAGE_BG.hard,
-    mobs:['stray','hound','sentinel'], killsToClear:24, boss:'warden', bossHpMult:8, mobBaseHp:52, mobGrowth:1.13 },
+    mobs:['stray','hound','sentinel'], killsToClear:24, boss:'warden', bossHpMult:13, mobBaseHp:52, mobGrowth:1.18 },
   { label:'Final', name:'The Cinder Gate', accent:'#E0BE5C', isFinal:true,
     sky1:'#3A1E12', sky2:'#7A3A1E', ground:'#2A160C', silo:'#1A0D06', bg:STAGE_BG.final,
-    mobs:['scout','wisp','stray','hound','sentinel'], killsToClear:10, boss:'warden', bossHpMult:14, mobBaseHp:75, mobGrowth:1.16 },
+    mobs:['scout','wisp','stray','hound','sentinel'], killsToClear:10, boss:'warden', bossHpMult:20, mobBaseHp:75, mobGrowth:1.22 },
 ];
 
 function currentStage(){ return STAGES[Math.min(stageIndex, STAGES.length-1)]; }
@@ -1658,7 +1658,7 @@ document.getElementById('clickUpBtn').addEventListener('click', ()=>{
   if(gold>=clickUpCost){
     gold -= clickUpCost;
     clickDamage += 1;
-    clickUpCost = Math.round(clickUpCost*1.6);
+    clickUpCost = Math.round(clickUpCost*2.15);
     renderAll();
   }
 });
